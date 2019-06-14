@@ -32,7 +32,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:text="Nombre"
-                android:textAlignment="viewEnd" />
+                android:textAlignment="viewEnd"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/mensajeMensaje"

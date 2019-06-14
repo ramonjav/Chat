@@ -1,8 +1,12 @@
 package firebase.app.pruebas2.adapters;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +22,8 @@ import firebase.app.pruebas2.R;
 import firebase.app.pruebas2.holders.HolderMensaje;
 import firebase.app.pruebas2.persistencia.UserDAO;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
+
 public class AdapterMensaje extends RecyclerView.Adapter<HolderMensaje> {
 
     private List<LMensaje> listmensaje = new ArrayList<>();
@@ -31,6 +37,7 @@ public class AdapterMensaje extends RecyclerView.Adapter<HolderMensaje> {
         listmensaje.add(lmensaje);
         int position = listmensaje.size()-1;
         notifyItemInserted(listmensaje.size());
+
         return position;
     }
 
@@ -77,6 +84,7 @@ public class AdapterMensaje extends RecyclerView.Adapter<HolderMensaje> {
             if(listmensaje.get(position).getLuser().getKey().equals(UserDAO.getIntacia().getkeyUser())) {
                 return 1;
             }else
+
                 return 0;
         }else
             return 0;
