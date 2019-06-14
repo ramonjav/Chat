@@ -35,7 +35,7 @@
                 android:id="@+id/mensajeMensaje"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="5dp"
+                android:padding="2dp"
                 android:text="Hola bienvenido"
                 android:textColor="@android:color/background_light"
                 android:textSize="18sp"
