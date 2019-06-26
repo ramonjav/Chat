@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void next(){
 
-        startActivity(new Intent(LoginActivity.this, MensajeActivity.class));
+        startActivity(new Intent(LoginActivity.this, MenuActivity.class));
         finish();
     }
 }
