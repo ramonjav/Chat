@@ -42,6 +42,7 @@ dependencies {
     ///Diseño mensajeria
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.2.Final'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

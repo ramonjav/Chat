@@ -87,6 +87,6 @@ public class AdapterMensaje extends RecyclerView.Adapter<HolderMensaje> {
 
                 return 0;
         }else
-            return 0;
+            return 1;
     }
 }

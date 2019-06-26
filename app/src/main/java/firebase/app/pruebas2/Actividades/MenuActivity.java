@@ -22,11 +22,12 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        boton = findViewById(R.id.button);
+        boton = findViewById(R.id.btn_ver_User);
 
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent i = new Intent(MenuActivity.this, VerUsuarioActivity.class);
 
                 startActivity(i);
