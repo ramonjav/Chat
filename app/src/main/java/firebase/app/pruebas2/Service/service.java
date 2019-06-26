@@ -11,7 +11,7 @@ public class service extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // ...
 
-        String TAG = "Niaaa ";
+        String TAG = "Niaaa";
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ

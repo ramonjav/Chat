@@ -11,6 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Actividades.VerUsuarioActivity"></activity>
+        <activity android:name=".Actividades.MenuActivity" />
         <activity android:name=".Actividades.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,8 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Actividades.RegistrarActivity"></activity>
-        <activity android:name=".Actividades.MensajeActivity"></activity>
+        <activity android:name=".Actividades.RegistrarActivity" />
+        <activity android:name=".Actividades.MensajeActivity" />
+
         <service android:name=".Service.service">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
