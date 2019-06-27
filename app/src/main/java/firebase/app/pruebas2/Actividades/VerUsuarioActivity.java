@@ -21,7 +21,7 @@ import firebase.app.pruebas2.holders.HolderUser;
 
 import static firebase.app.pruebas2.Utilidades.Contantes.NODO_USUARIOS;
 
-public class VerUsuarioActivity extends AppCompatActivity {
+public class VerUsuarioActivity extends AppCompatActivity{
 
     RecyclerView listUser;
     FirebaseRecyclerAdapter adapter;

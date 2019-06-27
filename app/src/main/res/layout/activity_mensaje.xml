@@ -25,13 +25,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Escribe un mensaje"
+            android:imeOptions="actionSend"
             android:inputType="textPersonName" />
 
         <Button
             android:id="@+id/btnEnviar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Enviar"/>
+            android:layout_width="48dp"
+            android:layout_height="45dp"
+            android:background="@drawable/ic_menu_send"
+            android:visibility="gone" />
 
     </LinearLayout>
 

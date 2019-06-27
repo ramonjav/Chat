@@ -11,8 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Actividades.VerUsuarioActivity"></activity>
-        <activity android:name=".Actividades.MenuActivity" />
+        <activity
+            android:name=".Actividades.MenuActivity"
+            android:label="@string/title_activity_menu"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Actividades.VerUsuarioActivity" />
         <activity android:name=".Actividades.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

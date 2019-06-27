@@ -1,7 +1,6 @@
 package firebase.app.pruebas2.holders;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import firebase.app.pruebas2.R;

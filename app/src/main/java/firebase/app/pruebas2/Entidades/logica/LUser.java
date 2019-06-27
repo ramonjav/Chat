@@ -1,7 +1,5 @@
 package firebase.app.pruebas2.Entidades.logica;
 
-import com.google.firebase.database.Exclude;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

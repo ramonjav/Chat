@@ -1,8 +1,5 @@
 package firebase.app.pruebas2.Entidades.firebase.logica;
 
-import com.google.firebase.database.Exclude;
-import com.google.firebase.database.ServerValue;
-
 public class User {
     private String emal;
     private String nombre;
