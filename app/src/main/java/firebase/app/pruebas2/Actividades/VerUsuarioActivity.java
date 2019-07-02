@@ -1,5 +1,6 @@
 package firebase.app.pruebas2.Actividades;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,9 +18,11 @@ import com.google.firebase.database.Query;
 import firebase.app.pruebas2.Entidades.firebase.logica.User;
 import firebase.app.pruebas2.Entidades.logica.LUser;
 import firebase.app.pruebas2.R;
+import firebase.app.pruebas2.Utilidades.Constantes;
 import firebase.app.pruebas2.holders.HolderUser;
+import firebase.app.pruebas2.persistencia.UserDAO;
 
-import static firebase.app.pruebas2.Utilidades.Contantes.NODO_USUARIOS;
+import static firebase.app.pruebas2.Utilidades.Constantes.NODO_USUARIOS;
 
 public class VerUsuarioActivity extends AppCompatActivity{
 
@@ -63,14 +66,16 @@ public class VerUsuarioActivity extends AppCompatActivity{
 
                 final LUser lUser = new LUser(getSnapshots().getSnapshot(position).getKey(), model);
 
-                holder.getName().setText(model.getNombre());
-                holder.getCorreo().setText(model.getEmal());
-
-
+                    holder.getName().setText(model.getNombre());
+                    holder.getCorreo().setText(model.getEmal());
 
                 holder.getLinearLayout().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        Intent intent = new Intent(VerUsuarioActivity.this, MensajeActivity.class);
+                        intent.putExtra(Constantes.KEY, lUser.getKey());
+                        startActivity(intent);
                         Toast.makeText(VerUsuarioActivity.this, lUser.getKey(), Toast.LENGTH_SHORT).show();
                     }
                 });

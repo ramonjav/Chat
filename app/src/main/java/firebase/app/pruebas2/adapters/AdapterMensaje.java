@@ -73,7 +73,7 @@ public class AdapterMensaje extends RecyclerView.Adapter<HolderMensaje> {
     @Override
     public int getItemViewType(int position) {
         if(listmensaje.get(position).getLuser() != null){
-            if(listmensaje.get(position).getLuser().getKey().equals(UserDAO.getIntacia().getkeyUser())) {
+            if(listmensaje.get(position).getLuser().getKey().equals(UserDAO.getInstancia().getkeyUser())) {
                 return 1;
             }else
 

@@ -3,6 +3,7 @@ package firebase.app.pruebas2.persistencia;
 import android.support.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -11,7 +12,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import firebase.app.pruebas2.Entidades.firebase.logica.User;
 import firebase.app.pruebas2.Entidades.logica.LUser;
-import firebase.app.pruebas2.Utilidades.Contantes;
+import firebase.app.pruebas2.Utilidades.Constantes;
 
 public class UserDAO {
 
@@ -25,14 +26,14 @@ public class UserDAO {
     private FirebaseDatabase database;
     private DatabaseReference referenciauser;
 
-    public static UserDAO getIntacia(){
+    public static UserDAO getInstancia(){
         if(userDAO == null) userDAO = new UserDAO();
         return userDAO;
     }
 
     private UserDAO(){
         database = FirebaseDatabase.getInstance();
-        referenciauser = database.getReference(Contantes.NODO_USUARIOS);
+        referenciauser = database.getReference(Constantes.NODO_USUARIOS);
     }
 
     public void OptenerUser (final String key, final IdevolverLuser idevolverLuser){
@@ -57,6 +58,11 @@ public class UserDAO {
 
     public String getkeyUser(){
         return FirebaseAuth.getInstance().getUid();
+    }
+
+    public boolean isUsuarioLogeado(){
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        return firebaseUser!=null;
     }
 
     public long fechacreacion(){

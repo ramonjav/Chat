@@ -28,14 +28,14 @@ import java.util.Map;
 import firebase.app.pruebas2.Entidades.firebase.logica.Mensaje;
 import firebase.app.pruebas2.Entidades.logica.LMensaje;
 import firebase.app.pruebas2.Entidades.logica.LUser;
+import firebase.app.pruebas2.Utilidades.Constantes;
 import firebase.app.pruebas2.adapters.AdapterMensaje;
 import firebase.app.pruebas2.R;
+import firebase.app.pruebas2.persistencia.MensajeDAO;
 import firebase.app.pruebas2.persistencia.UserDAO;
 
 public class MensajeActivity extends AppCompatActivity implements ChildEventListener {
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Chat");
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private Button btnEnviar;
@@ -43,11 +43,20 @@ public class MensajeActivity extends AppCompatActivity implements ChildEventList
     private RecyclerView rvMensaje;
     private AdapterMensaje adapter;
 
+    private String Key_receptor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mensaje);
+
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null){
+            Key_receptor = bundle.getString(Constantes.KEY);
+        }else{
+            finish();
+        }
 
 
         btnEnviar = findViewById(R.id.btnEnviar);
@@ -60,10 +69,13 @@ public class MensajeActivity extends AppCompatActivity implements ChildEventList
         rvMensaje.setAdapter(adapter);
 
         comprobarEditView(txtMensaje, btnEnviar);
-        Buttonenviar(btnEnviar,txtMensaje,myRef);
+        Buttonenviar(btnEnviar,txtMensaje);
 
         adapterRegister(adapter);
-        myRef.addChildEventListener(this);
+        FirebaseDatabase.getInstance()
+                .getReference(Constantes.NODO_MENSAJES)
+                .child(UserDAO.getInstancia().getkeyUser())
+                .child(Key_receptor).addChildEventListener(this);
     }
 
     private void setScrollbar(){
@@ -114,7 +126,7 @@ public class MensajeActivity extends AppCompatActivity implements ChildEventList
         });
     }
 
-    public void Buttonenviar(Button button, final EditText editText, final DatabaseReference databaseReference){
+    public void Buttonenviar(Button button, final EditText editText){
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,8 +134,8 @@ public class MensajeActivity extends AppCompatActivity implements ChildEventList
                 if(!men.isEmpty()){
                     Mensaje mensaje = new Mensaje();
                     mensaje.setMensaje(men);
-                    mensaje.setKeyEmisor(UserDAO.getIntacia().getkeyUser());
-                    databaseReference.push().setValue(mensaje);
+                    mensaje.setKeyEmisor(UserDAO.getInstancia().getkeyUser());
+                    MensajeDAO.getInstancia().NewMenssage(UserDAO.getInstancia().getkeyUser(), Key_receptor,mensaje);
                     editText.setText("");
                 }
             }
@@ -156,7 +168,7 @@ public class MensajeActivity extends AppCompatActivity implements ChildEventList
                 adapter.actualizarmensaje(position, lmensaje);
 
             }else{
-                UserDAO.getIntacia().OptenerUser(m.getKeyEmisor(), new UserDAO.IdevolverLuser() {
+                UserDAO.getInstancia().OptenerUser(m.getKeyEmisor(), new UserDAO.IdevolverLuser() {
                     @Override
                     public void devolver(LUser lUser) {
                         mapUT.put(m.getKeyEmisor(), lUser);

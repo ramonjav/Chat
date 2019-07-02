@@ -39,14 +39,14 @@ public class LUser {
 
     public String getDateCreated(){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        Date date = new Date(UserDAO.getIntacia().fechacreacion());
+        Date date = new Date(UserDAO.getInstancia().fechacreacion());
         return sdf.format(date);
 
     }
 
     public String getDateLastSingin(){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        Date date = new Date(UserDAO.getIntacia().fechaultimo());
+        Date date = new Date(UserDAO.getInstancia().fechaultimo());
         return sdf.format(date);
 
     }
