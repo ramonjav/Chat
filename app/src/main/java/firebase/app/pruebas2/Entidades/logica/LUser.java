@@ -1,6 +1,7 @@
 package firebase.app.pruebas2.Entidades.logica;
 
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -8,7 +9,7 @@ import java.util.Locale;
 import firebase.app.pruebas2.Entidades.firebase.logica.User;
 import firebase.app.pruebas2.persistencia.UserDAO;
 
-public class LUser {
+public class LUser implements Serializable {
 
     private User usuario;
     private String key;

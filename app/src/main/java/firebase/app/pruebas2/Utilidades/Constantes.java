@@ -7,5 +7,6 @@ public class Constantes {
 
 
         public static final String KEY = "key";
+        public static final String TOKEN = "token";
 
 }

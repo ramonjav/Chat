@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import firebase.app.pruebas2.Entidades.firebase.logica.User;
 import firebase.app.pruebas2.R;
@@ -26,6 +27,7 @@ public class RegistrarActivity extends AppCompatActivity {
     Button boton;
     private FirebaseAuth mAuth;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    String token = FirebaseInstanceId.getInstance().getToken();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class RegistrarActivity extends AppCompatActivity {
                                         User user = new User();
                                         user.setEmal(corre);
                                         user.setNombre(no);
+                                        user.setToken(token);
                                         FirebaseUser currentUser = mAuth.getCurrentUser();
                                         DatabaseReference reference = database.getReference("Usuarios/"+currentUser.getUid());
 

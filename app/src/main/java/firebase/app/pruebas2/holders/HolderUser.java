@@ -3,6 +3,7 @@ package firebase.app.pruebas2.holders;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ public class HolderUser extends RecyclerView.ViewHolder {
     private TextView name, correo;
 
     private LinearLayout linearLayout;
+    ImageButton button;
 
     public HolderUser(@NonNull View itemView) {
         super(itemView);
@@ -23,7 +25,9 @@ public class HolderUser extends RecyclerView.ViewHolder {
         name = itemView.findViewById(R.id.txt_name);
         correo = itemView.findViewById(R.id.txt_correo);
 
-        linearLayout = itemView.findViewById(R.id.id_Layout_Prin);
+        linearLayout = itemView.findViewById(R.id.id_Layout_Acceso);
+
+        button = itemView.findViewById(R.id.imgButton);
     }
 
     public CircleImageView getCircleImageView() {
@@ -56,5 +60,13 @@ public class HolderUser extends RecyclerView.ViewHolder {
 
     public void setLinearLayout(LinearLayout linearLayout) {
         this.linearLayout = linearLayout;
+    }
+
+    public ImageButton getButton() {
+        return button;
+    }
+
+    public void setButton(ImageButton button) {
+        this.button = button;
     }
 }

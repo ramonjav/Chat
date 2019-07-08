@@ -12,18 +12,21 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import firebase.app.pruebas2.Actividades.MensajeActivity;
 import firebase.app.pruebas2.Actividades.MenuActivity;
+import firebase.app.pruebas2.Actividades.VerUsuarioActivity;
+import firebase.app.pruebas2.Entidades.firebase.logica.Mensaje;
 import firebase.app.pruebas2.R;
+import firebase.app.pruebas2.Utilidades.Constantes;
 
 public class service extends FirebaseMessagingService {
     String TAG = "Mensaje";
     String tok = FirebaseInstanceId.getInstance().getToken();
 
+    String key;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // ...
-
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
@@ -33,13 +36,22 @@ public class service extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
 
+            /*key = remoteMessage.getData().get("KeyUser");
+
+            System.out.println(key);*/
+
         }
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getTitle() +"/ "+remoteMessage.getNotification().getBody());
+            System.out.println("Message Notification Body: " + tok);
+
+            System.out.println("Key emisor: "+remoteMessage.getData().get("KeyUser"));
+
+            key = remoteMessage.getData().get("KeyUser");
 
             mostrarnotificacion(remoteMessage.getNotification().getBody(), remoteMessage.getNotification().getTitle());
+
 
         }
 
@@ -49,7 +61,8 @@ public class service extends FirebaseMessagingService {
 
     public void mostrarnotificacion(String body, String title){
 
-        Intent intent = new Intent(service.this, MenuActivity.class);
+        Intent intent = new Intent(service.this, MensajeActivity.class);
+        intent.putExtra(Constantes.KEY, key);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent =PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 

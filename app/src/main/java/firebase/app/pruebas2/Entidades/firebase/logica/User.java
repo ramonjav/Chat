@@ -1,17 +1,21 @@
 package firebase.app.pruebas2.Entidades.firebase.logica;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String emal;
     private String nombre;
+    private String token;
 
     public User() {
 
 
     }
 
-    public User(String emal, String nombre) {
+    public User(String emal, String nombre, String token) {
         this.emal = emal;
         this.nombre = nombre;
+        this.token = token;
     }
 
     public String getEmal() {
@@ -30,5 +34,11 @@ public class User {
         this.nombre = nombre;
     }
 
+    public String getToken() {
+        return token;
+    }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

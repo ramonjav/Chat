@@ -23,6 +23,8 @@ import firebase.app.pruebas2.holders.HolderUser;
 import firebase.app.pruebas2.persistencia.UserDAO;
 
 import static firebase.app.pruebas2.Utilidades.Constantes.NODO_USUARIOS;
+import static firebase.app.pruebas2.Utilidades.ListDatos.listusers;
+import static firebase.app.pruebas2.gestion_ficheros.Gestion_Ficheros.guardardatos;
 
 public class VerUsuarioActivity extends AppCompatActivity{
 
@@ -77,6 +79,14 @@ public class VerUsuarioActivity extends AppCompatActivity{
                         intent.putExtra(Constantes.KEY, lUser.getKey());
                         startActivity(intent);
                         Toast.makeText(VerUsuarioActivity.this, lUser.getKey(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                holder.getButton().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        listusers.add(lUser);
+                        Toast.makeText(VerUsuarioActivity.this,"hhhh", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

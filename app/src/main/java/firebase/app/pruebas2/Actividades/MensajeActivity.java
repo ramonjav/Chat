@@ -9,23 +9,29 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import firebase.app.pruebas2.Entidades.firebase.logica.Mensaje;
+import firebase.app.pruebas2.Entidades.firebase.logica.User;
 import firebase.app.pruebas2.Entidades.logica.LMensaje;
 import firebase.app.pruebas2.Entidades.logica.LUser;
 import firebase.app.pruebas2.Utilidades.Constantes;
@@ -34,9 +40,12 @@ import firebase.app.pruebas2.R;
 import firebase.app.pruebas2.persistencia.MensajeDAO;
 import firebase.app.pruebas2.persistencia.UserDAO;
 
-public class MensajeActivity extends AppCompatActivity implements ChildEventListener {
+import static firebase.app.pruebas2.Notificacions.notification.sendNotification;
+
+public class MensajeActivity extends AppCompatActivity implements ChildEventListener, ValueEventListener {
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     private Button btnEnviar;
     private EditText txtMensaje;
@@ -44,6 +53,9 @@ public class MensajeActivity extends AppCompatActivity implements ChildEventList
     private AdapterMensaje adapter;
 
     private String Key_receptor;
+    String token;
+
+    User user;
 
 
     @Override
@@ -51,11 +63,19 @@ public class MensajeActivity extends AppCompatActivity implements ChildEventList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mensaje);
 
-        Bundle bundle = getIntent().getExtras();
+       Bundle bundle = getIntent().getExtras();
         if(bundle!=null){
             Key_receptor = bundle.getString(Constantes.KEY);
+            token = bundle.getString(Constantes.TOKEN);
         }else{
             finish();
+        }
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            DatabaseReference reference = database.getReference("Usuarios/" + currentUser.getUid());
+            reference.addListenerForSingleValueEvent(this);
+
         }
 
 
@@ -69,13 +89,44 @@ public class MensajeActivity extends AppCompatActivity implements ChildEventList
         rvMensaje.setAdapter(adapter);
 
         comprobarEditView(txtMensaje, btnEnviar);
-        Buttonenviar(btnEnviar,txtMensaje);
+        Buttonenviar();
+
+        txtMensaje.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                   System.out.println(actionId);
+                return false;
+            }
+        });
+
+       // txtMensaje.setText(Key_receptor);
+
 
         adapterRegister(adapter);
         FirebaseDatabase.getInstance()
                 .getReference(Constantes.NODO_MENSAJES)
                 .child(UserDAO.getInstancia().getkeyUser())
                 .child(Key_receptor).addChildEventListener(this);
+    }
+
+    private void Buttonenviar() {
+        btnEnviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String men = txtMensaje.getText().toString();
+                if(!men.isEmpty()){
+                    Mensaje mensaje = new Mensaje();
+                    LMensaje lMensaje = new LMensaje(mensaje.getKeyEmisor(), mensaje);
+                    lMensaje.setMessaje(mensaje);
+                    mensaje.setMensaje(men);
+                    mensaje.setKeyEmisor(UserDAO.getInstancia().getkeyUser());
+                    MensajeDAO.getInstancia().NewMenssage(UserDAO.getInstancia().getkeyUser(), Key_receptor,mensaje);
+                    Toast.makeText(MensajeActivity.this, user.getNombre(), Toast.LENGTH_SHORT).show();
+                   sendNotification(MensajeActivity.this, txtMensaje.getText().toString(), user.getNombre(), UserDAO.getInstancia().getkeyUser(), token);
+                    txtMensaje.setText("");
+                }
+            }
+        });
     }
 
     private void setScrollbar(){
@@ -112,6 +163,7 @@ public class MensajeActivity extends AppCompatActivity implements ChildEventList
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                signos();
                 if(editText.getText().toString().trim().length() > 0){
                     button.setVisibility(View.VISIBLE);
                 }else{
@@ -126,21 +178,6 @@ public class MensajeActivity extends AppCompatActivity implements ChildEventList
         });
     }
 
-    public void Buttonenviar(Button button, final EditText editText){
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String men = editText.getText().toString();
-                if(!men.isEmpty()){
-                    Mensaje mensaje = new Mensaje();
-                    mensaje.setMensaje(men);
-                    mensaje.setKeyEmisor(UserDAO.getInstancia().getkeyUser());
-                    MensajeDAO.getInstancia().NewMenssage(UserDAO.getInstancia().getkeyUser(), Key_receptor,mensaje);
-                    editText.setText("");
-                }
-            }
-        });
-    }
 
     public void adapterRegister(AdapterMensaje adapterMensaje){
 
@@ -201,7 +238,46 @@ public class MensajeActivity extends AppCompatActivity implements ChildEventList
     }
 
     @Override
+    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        user = dataSnapshot.getValue(User.class);
+    }
+
+    @Override
     public void onCancelled(@NonNull DatabaseError databaseError) {
 
+    }
+
+    public  void signos(){
+
+        if(txtMensaje.getText().toString().trim().contains("?")){
+        }else if(txtMensaje.getText().toString().trim().contains("¿")) {
+            poner_signos("?");
+         }
+
+        if(txtMensaje.getText().toString().trim().contains("!")){
+        }else if(txtMensaje.getText().toString().trim().contains("¡")){
+            poner_signos("!");
+        }
+
+        if(txtMensaje.getText().toString().trim().contains(")")){
+        }else if(txtMensaje.getText().toString().trim().contains("(")){
+            poner_signos(")");
+        }
+
+        if(txtMensaje.getText().toString().trim().contains("]")){
+        }else if(txtMensaje.getText().toString().trim().contains("[")){
+            poner_signos("]");
+        }
+
+        if(txtMensaje.getText().toString().trim().contains("}")){
+        }else if(txtMensaje.getText().toString().trim().contains("{")){
+            poner_signos("}");
+        }
+    }
+
+    public void poner_signos(String signo){
+            int posicion = txtMensaje.getSelectionEnd();
+            txtMensaje.setText(txtMensaje.getText().toString() + signo);
+            txtMensaje.setSelection(posicion);
     }
 }

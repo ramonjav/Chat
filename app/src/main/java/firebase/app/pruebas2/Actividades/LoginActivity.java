@@ -18,6 +18,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 import firebase.app.pruebas2.R;
 
+import static firebase.app.pruebas2.gestion_ficheros.Gestion_Ficheros.guardardatos;
+import static firebase.app.pruebas2.gestion_ficheros.Gestion_Ficheros.leerdatos;
+
 public class LoginActivity extends AppCompatActivity {
 
     TextInputEditText email, contrasena;
@@ -28,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         email = findViewById(R.id.txtcorreo);
         contrasena = findViewById(R.id.txtPass);
         mAuth = FirebaseAuth.getInstance();
@@ -95,4 +97,5 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(LoginActivity.this, MenuActivity.class));
         finish();
     }
+
 }
