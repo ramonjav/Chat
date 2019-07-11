@@ -20,9 +20,9 @@ import firebase.app.pruebas2.Utilidades.Contantes_Notification;
 
 public class AdapterUserMenu extends ArrayAdapter<LUser> {
 
-    ArrayList<LUser> users;
+    private ArrayList<LUser> users;
 
-    Context context;
+    private Context context;
 
     public AdapterUserMenu(Context context, ArrayList<LUser> users) {
         super(context, R.layout.activity_menu, users);
@@ -55,7 +55,7 @@ public class AdapterUserMenu extends ArrayAdapter<LUser> {
                intent.putExtra(Constantes.KEY, lUser.getKey());
                intent.putExtra(Constantes.TOKEN, lUser.getUsuario().getToken());
                context.startActivity(intent);
-               Toast.makeText(context, lUser.getUsuario().getToken(), Toast.LENGTH_SHORT).show();
+               //Toast.makeText(context, lUser.getUsuario().getToken(), Toast.LENGTH_SHORT).show();
            }
        });
 

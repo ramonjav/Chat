@@ -6,9 +6,10 @@ public class User implements Serializable {
     private String emal;
     private String nombre;
     private String token;
+    private boolean ConFoto;
+    private String UrlFoto;
 
     public User() {
-
 
     }
 

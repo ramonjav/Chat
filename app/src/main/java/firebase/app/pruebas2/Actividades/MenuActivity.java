@@ -38,19 +38,20 @@ import static firebase.app.pruebas2.gestion_ficheros.Gestion_Ficheros.guardardat
 import static firebase.app.pruebas2.gestion_ficheros.Gestion_Ficheros.leerdatos;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ValueEventListener {
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    User user;
-    String tok = FirebaseInstanceId.getInstance().getToken();
-    AdapterUserMenu adapter;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    ListView list;
+    private User user;
+    private String tok = FirebaseInstanceId.getInstance().getToken();
+    private AdapterUserMenu adapter;
 
-    String tipo;
-    String key;
+    private ListView list;
 
-    NavigationView navigationView;
+    private String tipo;
+    private String key;
+
+    private NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

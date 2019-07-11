@@ -23,8 +23,8 @@ import static firebase.app.pruebas2.gestion_ficheros.Gestion_Ficheros.leerdatos;
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextInputEditText email, contrasena;
-    Button button, registar;
+    private TextInputEditText email, contrasena;
+    private Button button, registar;
     private FirebaseAuth mAuth;
 
     @Override

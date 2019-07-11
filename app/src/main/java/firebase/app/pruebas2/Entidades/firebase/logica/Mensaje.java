@@ -7,6 +7,8 @@ public class Mensaje {
     private String mensaje;
     private String keyEmisor;
     private Object createdTimestamp;
+    private boolean ConFoto;
+    private String UrlFoto;
 
     public Mensaje() {
         createdTimestamp = ServerValue.TIMESTAMP;
@@ -34,5 +36,21 @@ public class Mensaje {
 
     public Object getCreatedTimestamp() {
         return createdTimestamp;
+    }
+
+    public boolean isConFoto() {
+        return ConFoto;
+    }
+
+    public void setConFoto(boolean conFoto) {
+        ConFoto = conFoto;
+    }
+
+    public String getUrlFoto() {
+        return UrlFoto;
+    }
+
+    public void setUrlFoto(String urlFoto) {
+        UrlFoto = urlFoto;
     }
 }

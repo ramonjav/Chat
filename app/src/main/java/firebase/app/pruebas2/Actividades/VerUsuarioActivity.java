@@ -28,8 +28,8 @@ import static firebase.app.pruebas2.gestion_ficheros.Gestion_Ficheros.guardardat
 
 public class VerUsuarioActivity extends AppCompatActivity{
 
-    RecyclerView listUser;
-    FirebaseRecyclerAdapter adapter;
+    private RecyclerView listUser;
+    private FirebaseRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,6 @@
 package firebase.app.pruebas2.Actividades;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
@@ -23,11 +24,11 @@ import firebase.app.pruebas2.R;
 
 public class RegistrarActivity extends AppCompatActivity {
 
-    TextInputEditText nombre, correo, contrasena, contrasenarepetida;
-    Button boton;
+    private TextInputEditText nombre, correo, contrasena, contrasenarepetida;
+    private Button boton;
     private FirebaseAuth mAuth;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    String token = FirebaseInstanceId.getInstance().getToken();
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private String token = FirebaseInstanceId.getInstance().getToken();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,8 @@ public class RegistrarActivity extends AppCompatActivity {
 
                                         reference.setValue(user);
 
+                                        regresar();
+
                                     } else {
                                         Toast.makeText(RegistrarActivity.this, "Error al registrar", Toast.LENGTH_LONG).show();
                                     }
@@ -90,5 +93,9 @@ public class RegistrarActivity extends AppCompatActivity {
 
     public boolean validarnombre(String na){
         return !na.isEmpty();
+    }
+
+    public void regresar(){
+        startActivity(new Intent(this, LoginActivity.class));
     }
 }

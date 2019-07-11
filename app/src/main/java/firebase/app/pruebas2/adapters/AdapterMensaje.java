@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,11 +47,10 @@ public class AdapterMensaje extends RecyclerView.Adapter<HolderMensaje> {
         if(viewType == 1){
             View v = LayoutInflater.from(c).inflate(R.layout.card_view_emisor, parent, false);
             return new HolderMensaje(v);
-        }else{
+        }else {
             View v = LayoutInflater.from(c).inflate(R.layout.card_view_receptor, parent, false);
             return new HolderMensaje(v);
         }
-
     }
 
     @Override
@@ -57,11 +58,21 @@ public class AdapterMensaje extends RecyclerView.Adapter<HolderMensaje> {
 
         LMensaje lmensaje = listmensaje.get(position);
         LUser luser = lmensaje.getLuser();
+
         if(luser != null){
             holder.getNombre().setText(luser.getUsuario().getNombre());
         }
         holder.getMensaje().setText(lmensaje.getMessaje().getMensaje());
         holder.getHora().setText(lmensaje.fechamensaje());
+
+        lmensaje.getMessaje().isConFoto();
+
+       if(lmensaje.getMessaje().isConFoto()){
+            holder.getImage().setVisibility(View.VISIBLE);
+            Glide.with(c).load(lmensaje.getMessaje().getUrlFoto()).into(holder.getImage());
+        }else {
+            holder.getImage().setVisibility(View.GONE);
+        }
 
     }
 
@@ -79,6 +90,6 @@ public class AdapterMensaje extends RecyclerView.Adapter<HolderMensaje> {
 
                 return 0;
         }else
-            return 1;
+            return 3;
     }
 }
