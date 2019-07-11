@@ -20,11 +20,9 @@ import firebase.app.pruebas2.Entidades.logica.LUser;
 import firebase.app.pruebas2.R;
 import firebase.app.pruebas2.Utilidades.Constantes;
 import firebase.app.pruebas2.holders.HolderUser;
-import firebase.app.pruebas2.persistencia.UserDAO;
 
 import static firebase.app.pruebas2.Utilidades.Constantes.NODO_USUARIOS;
 import static firebase.app.pruebas2.Utilidades.ListDatos.listusers;
-import static firebase.app.pruebas2.gestion_ficheros.Gestion_Ficheros.guardardatos;
 
 public class VerUsuarioActivity extends AppCompatActivity{
 

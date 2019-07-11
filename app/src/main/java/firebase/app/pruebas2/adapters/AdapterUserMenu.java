@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -16,7 +15,6 @@ import firebase.app.pruebas2.Actividades.MensajeActivity;
 import firebase.app.pruebas2.Entidades.logica.LUser;
 import firebase.app.pruebas2.R;
 import firebase.app.pruebas2.Utilidades.Constantes;
-import firebase.app.pruebas2.Utilidades.Contantes_Notification;
 
 public class AdapterUserMenu extends ArrayAdapter<LUser> {
 

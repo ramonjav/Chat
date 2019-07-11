@@ -13,10 +13,12 @@ public class User implements Serializable {
 
     }
 
-    public User(String emal, String nombre, String token) {
+    public User(String emal, String nombre, String token, boolean ConFoto, String UrlFoto) {
         this.emal = emal;
         this.nombre = nombre;
         this.token = token;
+        this.ConFoto = ConFoto;
+        this.UrlFoto = UrlFoto;
     }
 
     public String getEmal() {

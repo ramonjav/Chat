@@ -2,7 +2,6 @@ package firebase.app.pruebas2.Entidades.logica;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 

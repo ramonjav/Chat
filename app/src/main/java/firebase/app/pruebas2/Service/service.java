@@ -6,16 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import firebase.app.pruebas2.Actividades.MensajeActivity;
-import firebase.app.pruebas2.Actividades.MenuActivity;
-import firebase.app.pruebas2.Actividades.VerUsuarioActivity;
-import firebase.app.pruebas2.Entidades.firebase.logica.Mensaje;
 import firebase.app.pruebas2.R;
 import firebase.app.pruebas2.Utilidades.Constantes;
 

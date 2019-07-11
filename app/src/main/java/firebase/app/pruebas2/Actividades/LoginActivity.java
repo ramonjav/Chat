@@ -18,9 +18,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 import firebase.app.pruebas2.R;
 
-import static firebase.app.pruebas2.gestion_ficheros.Gestion_Ficheros.guardardatos;
-import static firebase.app.pruebas2.gestion_ficheros.Gestion_Ficheros.leerdatos;
-
 public class LoginActivity extends AppCompatActivity {
 
     private TextInputEditText email, contrasena;
