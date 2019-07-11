@@ -6,19 +6,16 @@ public class User implements Serializable {
     private String emal;
     private String nombre;
     private String token;
-    private boolean ConFoto;
-    private String UrlFoto;
+
 
     public User() {
 
     }
 
-    public User(String emal, String nombre, String token, boolean ConFoto, String UrlFoto) {
+    public User(String emal, String nombre, String token) {
         this.emal = emal;
         this.nombre = nombre;
         this.token = token;
-        this.ConFoto = ConFoto;
-        this.UrlFoto = UrlFoto;
     }
 
     public String getEmal() {

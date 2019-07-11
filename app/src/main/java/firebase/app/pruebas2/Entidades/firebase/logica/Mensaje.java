@@ -9,6 +9,8 @@ public class Mensaje {
     private Object createdTimestamp;
     private boolean ConFoto;
     private String UrlFoto;
+    private String Ubicacion;
+    private String NameFoto;
 
     public Mensaje() {
         createdTimestamp = ServerValue.TIMESTAMP;
@@ -52,5 +54,21 @@ public class Mensaje {
 
     public void setUrlFoto(String urlFoto) {
         UrlFoto = urlFoto;
+    }
+
+    public String getUbicacion() {
+        return Ubicacion;
+    }
+
+    public void setUbicacion(String uname) {
+        Ubicacion = uname;
+    }
+
+    public String getNameFoto() {
+        return NameFoto;
+    }
+
+    public void setNameFoto(String nameFoto) {
+        NameFoto = nameFoto;
     }
 }

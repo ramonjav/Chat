@@ -1,17 +1,35 @@
 package firebase.app.pruebas2.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import firebase.app.pruebas2.Actividades.FotoActivity;
 import firebase.app.pruebas2.Entidades.logica.LMensaje;
 import firebase.app.pruebas2.Entidades.logica.LUser;
 import firebase.app.pruebas2.R;
@@ -54,9 +72,9 @@ public class AdapterMensaje extends RecyclerView.Adapter<HolderMensaje> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HolderMensaje holder, int position) {
+    public void onBindViewHolder(@NonNull final HolderMensaje holder, int position) {
 
-        LMensaje lmensaje = listmensaje.get(position);
+        final LMensaje lmensaje = listmensaje.get(position);
         LUser luser = lmensaje.getLuser();
 
         if(luser != null){
@@ -68,8 +86,20 @@ public class AdapterMensaje extends RecyclerView.Adapter<HolderMensaje> {
         lmensaje.getMessaje().isConFoto();
 
        if(lmensaje.getMessaje().isConFoto()){
+
             holder.getImage().setVisibility(View.VISIBLE);
-            Glide.with(c).load(lmensaje.getMessaje().getUrlFoto()).into(holder.getImage());
+           Glide.with(c).asBitmap().load(lmensaje.getMessaje().getUrlFoto()).into(new SimpleTarget<Bitmap>() {
+               @Override
+               public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                   String fichero = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Chat/Images/";
+                   saveImage(resource, lmensaje.getMessaje().getNameFoto(), fichero);
+
+                   Glide.with(c).load(Environment.getExternalStorageDirectory().getAbsolutePath() + lmensaje.getMessaje().getUbicacion()).into(holder.getImage());
+               }
+           });
+
+
+
         }else {
             holder.getImage().setVisibility(View.GONE);
         }
@@ -90,6 +120,26 @@ public class AdapterMensaje extends RecyclerView.Adapter<HolderMensaje> {
 
                 return 0;
         }else
-            return 3;
+            return 1;
+    }
+
+    public void saveImage(Bitmap bitmap, String fileName, String fichero){
+
+        File file = new File(fichero, fileName);
+        if(!file.exists()){
+            Log.d("pathImage", file.toString());
+            FileOutputStream fos = null;
+            try{
+                //file.mkdirs();
+                fos = new FileOutputStream(file);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                fos.flush();
+                fos.close();
+                Log.d("pathImage", file.toString());
+            }catch (java.io.IOException e){
+                e.printStackTrace();
+            }
+        }
+        //Toast.makeText(FotoActivity.this, file.toString(), Toast.LENGTH_SHORT).show();
     }
 }

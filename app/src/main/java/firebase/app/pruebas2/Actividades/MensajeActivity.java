@@ -158,6 +158,8 @@ public class MensajeActivity extends AppCompatActivity implements ChildEventList
                     mensaje.setMensaje(men);
                     mensaje.setConFoto(false);
                     mensaje.setUrlFoto("");
+                    mensaje.setUbicacion("");
+                    mensaje.setNameFoto("");
                     mensaje.setKeyEmisor(UserDAO.getInstancia().getkeyUser());
                     MensajeDAO.getInstancia().NewMenssage(UserDAO.getInstancia().getkeyUser(), Key_receptor,mensaje);
                     Toast.makeText(MensajeActivity.this, user.getNombre(), Toast.LENGTH_SHORT).show();
